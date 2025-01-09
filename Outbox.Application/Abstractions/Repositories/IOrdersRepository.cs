@@ -1,5 +1,4 @@
-﻿using Outbox.Application.Features.Order.Create;
-using Outbox.Domain.Orders;
+﻿using Outbox.Domain.Orders;
 
 namespace Outbox.Application.Abstractions.Repositories
 {

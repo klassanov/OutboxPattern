@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Outbox.Application.Abstractions.Database;
 using Outbox.Application.Abstractions.Repositories;
 using Outbox.Persistence.Database;
-using Outbox.Persistence.Repositories;
+using Outbox.Persistence.Orders;
 
 namespace Outbox.Persistence
 {
@@ -16,6 +16,8 @@ namespace Outbox.Persistence
             {
                 options.UseNpgsql("PostgresDocker");
             });
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
 
             return services;

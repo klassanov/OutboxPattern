@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Outbox.Application.Abstractions.Database;
-using Outbox.Domain.Orders;
 
 namespace Outbox.Persistence.Database
 {
@@ -8,9 +7,14 @@ namespace Outbox.Persistence.Database
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions): base(dbContextOptions)
         {
-            
         }
 
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Domain.Orders.Order> Orders { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        }
     }
 }

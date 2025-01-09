@@ -7,7 +7,7 @@ using MediatR;
 using Outbox.Application.Abstractions.Repositories;
 using Outbox.Application.Extensions;
 
-namespace Outbox.Application.Features.Order.Create
+namespace Outbox.Application.Features.Orders.Create
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, OrderDto>
     {

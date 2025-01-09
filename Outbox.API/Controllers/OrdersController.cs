@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Outbox.Application.Features.Order.Create;
+using Outbox.Application.Features.Orders.Create;
 
 namespace Outbox.API.Controllers
 {

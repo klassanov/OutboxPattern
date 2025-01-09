@@ -1,4 +1,4 @@
-﻿using Outbox.Application.Features.Order.Create;
+﻿using Outbox.Application.Features.Orders.Create;
 using Outbox.Domain.Orders;
 
 namespace Outbox.Application.Extensions
