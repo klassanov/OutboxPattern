@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Outbox.Application.Features.Orders.Create
+namespace Outbox.Application.Features.Orders.Shared
 {
     public record OrderDto
     {

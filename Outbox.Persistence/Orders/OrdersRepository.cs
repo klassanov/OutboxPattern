@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Outbox.Application.Abstractions.Database;
+﻿using Outbox.Application.Abstractions.Database;
 using Outbox.Application.Abstractions.Repositories;
 using Outbox.Domain.Orders;
 
@@ -23,6 +18,11 @@ namespace Outbox.Persistence.Orders
            var createdOrder =  await dbContext.Orders.AddAsync(order);
            await dbContext.SaveChangesAsync();
            return createdOrder.Entity.Id;
+        }
+
+        public async Task<Order?> GetOrderById(Guid id)
+        {
+            return await dbContext.Orders.FindAsync(id);
         }
     }
 }

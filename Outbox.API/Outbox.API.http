@@ -1,8 +1,5 @@
 @Outbox.API_HostAddress = https://localhost:7057
 
-GET {{Outbox.API_HostAddress}}/api/orders
-Accept: application/json
-
 ###
 
 POST {{Outbox.API_HostAddress}}/api/orders
@@ -13,5 +10,9 @@ Content-Type: application/json
   "productId": 456,
   "quantity": 5
 }
+
+###
+
+GET {{Outbox.API_HostAddress}}/api/orders/7c1df4f3-2596-4966-bc8a-e838fde1e2f1
 
 ###

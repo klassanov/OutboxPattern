@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Outbox.Application.Abstractions.Repositories;
 using Outbox.Application.Extensions;
+using Outbox.Application.Features.Orders.Shared;
 
 namespace Outbox.Application.Features.Orders.Create
 {

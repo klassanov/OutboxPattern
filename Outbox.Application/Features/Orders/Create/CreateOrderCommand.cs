@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Outbox.Application.Features.Orders.Shared;
 
 namespace Outbox.Application.Features.Orders.Create
 {

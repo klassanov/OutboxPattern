@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Outbox.Application.Features.Orders.Create;
+using Outbox.Application.Features.Orders.GetById;
+using Outbox.Application.Features.Orders.Shared;
 
 namespace Outbox.API.Controllers
 {
@@ -20,6 +22,16 @@ namespace Outbox.API.Controllers
         {
             var order = await mediator.Send(createOrderCommand);
             return order;
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<OrderDto>> GetOrder(Guid id)
+        {
+            var query = new GetOrderByIdQuery(id);
+            var orderDto = await mediator.Send(query);
+            return orderDto is null
+                ? NotFound(id)
+                : Ok(orderDto);
         }
     }
 }
