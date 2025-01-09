@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseDeveloperExceptionPage();
 
-    //app.ApplyDbMigrations();
+    app.ApplyDbMigrations();
     app.UseMigrationsEndPoint();
 }
 
