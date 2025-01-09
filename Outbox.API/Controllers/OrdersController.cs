@@ -30,7 +30,7 @@ namespace Outbox.API.Controllers
             var query = new GetOrderByIdQuery(id);
             var orderDto = await mediator.Send(query);
             return orderDto is null
-                ? NotFound(id)
+                ? NotFound()
                 : Ok(orderDto);
         }
     }
