@@ -6,5 +6,7 @@ namespace Outbox.Application.Abstractions.Database
     public interface IApplicationDbContext
     {
         DbSet<Order> Orders { get; set; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

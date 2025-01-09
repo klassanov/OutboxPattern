@@ -1,6 +1,17 @@
-@Outbox.API_HostAddress = http://localhost:5151
+@Outbox.API_HostAddress = https://localhost:7057
 
-GET {{Outbox.API_HostAddress}}/weatherforecast/
+GET {{Outbox.API_HostAddress}}/api/orders
 Accept: application/json
+
+###
+
+POST {{Outbox.API_HostAddress}}/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 123,
+  "productId": 456,
+  "quantity": 5
+}
 
 ###

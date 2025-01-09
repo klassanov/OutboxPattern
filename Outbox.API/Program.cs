@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.RegisterApplicationServices()
-                .RegisterPersistenceServices();
+                .RegisterPersistenceServices(builder.Configuration);
 
 
 

@@ -16,5 +16,10 @@ namespace Outbox.Persistence.Database
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
+
+        //public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        //{
+        //    return base.SaveChangesAsync(cancellationToken);
+        //}
     }
 }

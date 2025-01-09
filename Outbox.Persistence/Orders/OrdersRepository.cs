@@ -18,9 +18,11 @@ namespace Outbox.Persistence.Orders
             this.dbContext = dbContext;
         }
 
-        public Task<Guid> CreateOrder(Order order)
+        public async Task<Guid> CreateOrder(Order order)
         {
-            throw new NotImplementedException();
+           var createdOrder =  await dbContext.Orders.AddAsync(order);
+           await dbContext.SaveChangesAsync();
+           return createdOrder.Entity.Id;
         }
     }
 }

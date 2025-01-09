@@ -2,6 +2,11 @@
 {
     public class Order
     {
+        public Order()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
         public Guid Id { get; set; }
 
         public int CustomerId { get; set; }
