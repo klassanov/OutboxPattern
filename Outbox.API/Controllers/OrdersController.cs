@@ -17,13 +17,17 @@ namespace Outbox.API.Controllers
             this.mediator = mediator;
         }
 
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(OrderDto))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<OrderDto> CreateOrder(CreateOrderCommand createOrderCommand)
+        public async Task<ActionResult<OrderDto>> CreateOrder(CreateOrderCommand createOrderCommand)
         {
-            var order = await mediator.Send(createOrderCommand);
-            return order;
+            var orderDto = await mediator.Send(createOrderCommand);
+            return CreatedAtAction(nameof(GetOrder), new {id = orderDto.Id }, orderDto);
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK, Type =typeof(OrderDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<OrderDto>> GetOrder(Guid id)
         {
