@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Outbox.Application.Abstractions.Database;
+using Outbox.Domain.Orders;
+using Outbox.Domain.OutboxMessages;
 
 namespace Outbox.Persistence.Database
 {
@@ -9,7 +11,8 @@ namespace Outbox.Persistence.Database
         {
         }
 
-        public DbSet<Domain.Orders.Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OutboxMessage> OutboxMessages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
