@@ -7,5 +7,7 @@ namespace Outbox.Application.Abstractions.Repositories
         Task<Guid> CreateOrder(Order order);
 
         Task<Order?> GetOrderById(Guid id);
+
+        Task<int> SaveChangesAsync();
     }
 }

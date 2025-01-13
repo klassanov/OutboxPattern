@@ -16,13 +16,17 @@ namespace Outbox.Persistence.Orders
         public async Task<Guid> CreateOrder(Order order)
         {
            var createdOrder =  await dbContext.Orders.AddAsync(order);
-           await dbContext.SaveChangesAsync();
            return createdOrder.Entity.Id;
         }
 
         public async Task<Order?> GetOrderById(Guid id)
         {
             return await dbContext.Orders.FindAsync(id);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+           return await dbContext.SaveChangesAsync();
         }
     }
 }

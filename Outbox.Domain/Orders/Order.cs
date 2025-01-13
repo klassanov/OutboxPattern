@@ -1,10 +1,12 @@
-﻿namespace Outbox.Domain.Orders
+﻿using Outbox.Domain.Common;
+
+namespace Outbox.Domain.Orders
 {
-    public class Order
+    public class Order: DomainEntity
     {
         public Order()
         {
-            this.Id = Guid.NewGuid();
+            this.Id = Guid.CreateVersion7();
         }
 
         public Guid Id { get; set; }

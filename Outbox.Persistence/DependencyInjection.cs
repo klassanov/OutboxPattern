@@ -5,6 +5,7 @@ using Outbox.Application.Abstractions.Database;
 using Outbox.Application.Abstractions.Repositories;
 using Outbox.Persistence.Database;
 using Outbox.Persistence.Orders;
+using Outbox.Persistence.OutboxMessages;
 
 namespace Outbox.Persistence
 {
@@ -14,10 +15,15 @@ namespace Outbox.Persistence
         {
             string? connectionString = configuration.GetConnectionString("PostgresDocker");
 
+            services.AddSingleton<InsertOutboxMessagesInterceptor>();
+
             services.AddScoped<IOrdersRepository, OrdersRepository>();
-            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
+            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>((serviceProvider, options) =>
             {
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(connectionString)
+                       .AddInterceptors(
+                            serviceProvider.GetRequiredService<InsertOutboxMessagesInterceptor>());
+
             });
 
             services.AddDatabaseDeveloperPageExceptionFilter();

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Outbox.Application.Abstractions.Repositories;
 using Outbox.Application.Extensions;
 using Outbox.Application.Features.Orders.Shared;
+using Outbox.Domain.Orders;
 
 namespace Outbox.Application.Features.Orders.Create
 {
@@ -22,7 +18,11 @@ namespace Outbox.Application.Features.Orders.Create
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = request.ToOrder();
+            order.Raise(new OrderCreatedEvent(order.Id));
             var orderId = await ordersRepository.CreateOrder(order);
+
+            await ordersRepository.SaveChangesAsync();
+
             return new OrderDto()
             {
                 Id = orderId,

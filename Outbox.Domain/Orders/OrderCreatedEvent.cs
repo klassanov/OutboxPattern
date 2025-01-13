@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Outbox.Domain.Common;
 
 namespace Outbox.Domain.Orders
 {
-    public class OrderCreatedEvent
-    {
-    }
+    public record OrderCreatedEvent(Guid OrderId): IDomainEvent;
+    
 }
