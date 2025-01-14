@@ -2,7 +2,7 @@ using Outbox.MessagesProcessor.Abstractions;
 
 namespace Outbox.MessagesProcessor
 {
-    public class Worker(ILogger<Worker> logger, IOutboxRepository outboxRepository) : BackgroundService
+    public class Worker(ILogger<Worker> logger, IOutboxMessagesProcessor outboxRepository, IPublisher publisher) : BackgroundService
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -13,7 +13,8 @@ namespace Outbox.MessagesProcessor
                     logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 }
 
-                var messages = await outboxRepository.GetOutboxMessages();
+                var messages = await outboxRepository.ProcessOutboxMessages();
+                             
 
                 await Task.Delay(1000, stoppingToken);
             }

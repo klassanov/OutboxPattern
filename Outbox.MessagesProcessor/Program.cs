@@ -11,7 +11,8 @@ var dataSourceBuilder = new NpgsqlDataSourceBuilder(connString);
 var npgsqlDataSource = dataSourceBuilder.Build();
 
 builder.Services.AddSingleton<NpgsqlDataSource>(npgsqlDataSource);
-builder.Services.AddSingleton<IOutboxRepository, OutboxRepository>();
+builder.Services.AddSingleton<IOutboxMessagesProcessor, OutboxMessagesProcessor>();
+builder.Services.AddSingleton<IPublisher, Publisher>();
 builder.Services.AddHostedService<Worker>();
 
 var host = builder.Build();

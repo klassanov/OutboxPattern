@@ -7,8 +7,8 @@ using Outbox.MessagesProcessor.Models;
 
 namespace Outbox.MessagesProcessor.Abstractions
 {
-    public interface IOutboxRepository
+    public interface IOutboxMessagesProcessor
     {
-        Task<IEnumerable<OutboxMessage>> GetOutboxMessages();
+        Task<IEnumerable<OutboxMessage>> ProcessOutboxMessages();
     }
 }
