@@ -18,7 +18,7 @@ namespace Outbox.Application.Features.Orders.Create
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = request.ToOrder();
-            order.Raise(new OrderCreatedEvent(order.Id));
+            order.Raise(new OrderCreatedEvent(order.Id, order.CustomerId, order.ProductId, order.Quantity));
             var orderId = await ordersRepository.CreateOrder(order);
 
             await ordersRepository.SaveChangesAsync();
