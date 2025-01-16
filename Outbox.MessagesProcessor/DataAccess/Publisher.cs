@@ -1,13 +1,13 @@
-﻿using Outbox.MessagesProcessor.Abstractions;
-using Outbox.MessagesProcessor.Models;
+﻿using Outbox.Domain.OutboxMessages;
+using Outbox.MessagesProcessor.Abstractions;
 
 namespace Outbox.MessagesProcessor.DataAccess
 {
-    public class Publisher : IPublisher
+    public class Publisher(ILogger<Publisher> logger) : IPublisher
     {
-        public void PublishMessage(OutboxMessage message)
+        public void PublishMessage(object message)
         {
-            //TODO
+            logger.LogInformation("Publishing {messageType}, {payload}", message.GetType().Name, message.ToString());
         }
     }
 }

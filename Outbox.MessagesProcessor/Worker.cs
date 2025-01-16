@@ -16,7 +16,7 @@ namespace Outbox.MessagesProcessor
                 var messages = await outboxRepository.ProcessOutboxMessages();
                              
 
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(30000, stoppingToken);
             }
         }
     }

@@ -13,5 +13,13 @@
     <PackageReference Include="Npgsql" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Outbox.Domain\Outbox.Domain.csproj" />
+  </ItemGroup>
+
 
 </Project>

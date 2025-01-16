@@ -1,9 +1,9 @@
-﻿using Outbox.MessagesProcessor.Models;
+﻿using Outbox.Domain.OutboxMessages;
 
 namespace Outbox.MessagesProcessor.Abstractions
 {
     public interface IPublisher
     {
-        void PublishMessage(OutboxMessage message);
+        void PublishMessage(object message);
     }
 }
