@@ -13,8 +13,7 @@ namespace Outbox.MessagesProcessor
                     logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 }
 
-                var messages = await outboxRepository.ProcessOutboxMessages();
-                             
+                await outboxRepository.ProcessOutboxMessages();
 
                 await Task.Delay(30000, stoppingToken);
             }

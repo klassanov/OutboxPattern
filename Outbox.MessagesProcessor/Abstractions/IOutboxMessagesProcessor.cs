@@ -4,6 +4,6 @@ namespace Outbox.MessagesProcessor.Abstractions
 {
     public interface IOutboxMessagesProcessor
     {
-        Task<IEnumerable<OutboxMessage>> ProcessOutboxMessages();
+        Task ProcessOutboxMessages();
     }
 }

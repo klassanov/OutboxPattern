@@ -11,21 +11,34 @@ namespace Outbox.MessagesProcessor.DataAccess
     {
         private static Assembly DomainAssembly = typeof(OutboxMessage).Assembly;
 
+
         private static string GetOutboxMessagesQuery = @"
                 SELECT ""Id"", ""Type"", ""Content"", ""OccurredOnUtc"", ""ProcessedOnUtc"", ""Error""
                 FROM public.""OutboxMessages""
                 WHERE ""ProcessedOnUtc"" IS NULL
                 ORDER BY ""OccurredOnUtc"" DESC;";
 
-        private static string UpdateOutboxMessagesQuery = @"";
+        private static string UpdateProcessedOutboxMessageCommand = @"
+                UPDATE public.""OutboxMessages""
+                SET ""ProcessedOnUtc"" = @ProcessedOnUtc
+                WHERE ""Id"" = @Id";
 
-        public async Task<IEnumerable<OutboxMessage>> ProcessOutboxMessages()
+        private static string UpdateFailedOutboxMessageCommand = @"
+                UPDATE public.""OutboxMessages""
+                SET ""Error"" = @Error, ""ProcessedOnUtc"" = @ProcessedOnUtc
+                WHERE ""Id"" = @Id";
+
+
+        public async Task ProcessOutboxMessages()
         {
             using (var connection = await dataSource.OpenConnectionAsync())
             {
                 using (var transaction = await connection.BeginTransactionAsync())
                 {
-                    var messages = await connection.QueryAsync<OutboxMessage>(GetOutboxMessagesQuery, transaction: transaction);
+                    var messages = await connection.QueryAsync<OutboxMessage>(
+                        sql: GetOutboxMessagesQuery,
+                        transaction: transaction);
+
                     foreach (var message in messages)
                     {
                         try
@@ -34,10 +47,18 @@ namespace Outbox.MessagesProcessor.DataAccess
                             var jsonMessage = JsonSerializer.Deserialize(message.Content, messageType);
 
                             publisher.PublishMessage(jsonMessage);
+
+                            await connection.ExecuteAsync(
+                                sql: UpdateProcessedOutboxMessageCommand,
+                                param: new { ProcessedOnUtc = DateTime.UtcNow, Id = message.Id },
+                                transaction: transaction);
                         }
                         catch (Exception ex)
                         {
-
+                            await connection.ExecuteAsync(
+                               sql: UpdateFailedOutboxMessageCommand,
+                               param: new { Error = ex.Message, ProcessedOnUtc = DateTime.UtcNow, Id = message.Id },
+                               transaction: transaction);
                         }
 
 
@@ -46,8 +67,6 @@ namespace Outbox.MessagesProcessor.DataAccess
                     await transaction.CommitAsync();
                 }
             }
-
-            return null;
         }
     }
 }
